@@ -14,9 +14,9 @@ const Util = (($) => {
    * ------------------------------------------------------------------------
    */
 
-  const TRANSITION_END = 'transitionend'
-  const MAX_UID = 1000000
-  const MILLISECONDS_MULTIPLIER = 1000
+  const TRANSITION_END = 'transitionend';
+  const MAX_UID = 1000000;
+  const MILLISECONDS_MULTIPLIER = 1000;
 
   // Shoutout AngusCroll (https://goo.gl/pxwQGp)
   function toType(obj) {
@@ -37,23 +37,23 @@ const Util = (($) => {
   }
 
   function transitionEndEmulator(duration) {
-    let called = false
+    let called = false;
 
     $(this).one(Util.TRANSITION_END, () => {
       called = true
-    })
+    });
 
     setTimeout(() => {
       if (!called) {
         Util.triggerTransitionEnd(this)
       }
-    }, duration)
+    }, duration);
 
     return this
   }
 
   function setTransitionEndSupport() {
-    $.fn.emulateTransitionEnd = transitionEndEmulator
+    $.fn.emulateTransitionEnd = transitionEndEmulator;
     $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent()
   }
 
@@ -71,12 +71,12 @@ const Util = (($) => {
       do {
         // eslint-disable-next-line no-bitwise
         prefix += ~~(Math.random() * MAX_UID) // "~~" acts like a faster Math.floor() here
-      } while (document.getElementById(prefix))
+      } while (document.getElementById(prefix));
       return prefix
     },
 
     getSelectorFromElement(element) {
-      let selector = element.getAttribute('data-target')
+      let selector = element.getAttribute('data-target');
       if (!selector || selector === '#') {
         selector = element.getAttribute('href') || ''
       }
@@ -94,8 +94,8 @@ const Util = (($) => {
       }
 
       // Get transition-duration of the element
-      let transitionDuration = $(element).css('transition-duration')
-      const floatTransitionDuration = parseFloat(transitionDuration)
+      let transitionDuration = $(element).css('transition-duration');
+      const floatTransitionDuration = parseFloat(transitionDuration);
 
       // Return 0 if element or transition duration is not found
       if (!floatTransitionDuration) {
@@ -103,7 +103,7 @@ const Util = (($) => {
       }
 
       // If multiple durations are defined, take the first
-      transitionDuration = transitionDuration.split(',')[0]
+      transitionDuration = transitionDuration.split(',')[0];
 
       return parseFloat(transitionDuration) * MILLISECONDS_MULTIPLIER
     },
@@ -128,10 +128,10 @@ const Util = (($) => {
     typeCheckConfig(componentName, config, configTypes) {
       for (const property in configTypes) {
         if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
-          const expectedTypes = configTypes[property]
-          const value         = config[property]
+          const expectedTypes = configTypes[property];
+          const value         = config[property];
           const valueType     = value && Util.isElement(value)
-            ? 'element' : toType(value)
+            ? 'element' : toType(value);
 
           if (!new RegExp(expectedTypes).test(valueType)) {
             throw new Error(
@@ -142,11 +142,11 @@ const Util = (($) => {
         }
       }
     }
-  }
+  };
 
-  setTransitionEndSupport()
+  setTransitionEndSupport();
 
   return Util
-})($)
+})($);
 
 export default Util

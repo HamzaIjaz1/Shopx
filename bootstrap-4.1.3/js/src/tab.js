@@ -15,12 +15,12 @@ const Tab = (($) => {
    * ------------------------------------------------------------------------
    */
 
-  const NAME               = 'tab'
-  const VERSION            = '4.1.3'
-  const DATA_KEY           = 'bs.tab'
-  const EVENT_KEY          = `.${DATA_KEY}`
-  const DATA_API_KEY       = '.data-api'
-  const JQUERY_NO_CONFLICT = $.fn[NAME]
+  const NAME               = 'tab';
+  const VERSION            = '4.1.3';
+  const DATA_KEY           = 'bs.tab';
+  const EVENT_KEY          = `.${DATA_KEY}`;
+  const DATA_API_KEY       = '.data-api';
+  const JQUERY_NO_CONFLICT = $.fn[NAME];
 
   const Event = {
     HIDE           : `hide${EVENT_KEY}`,
@@ -28,7 +28,7 @@ const Tab = (($) => {
     SHOW           : `show${EVENT_KEY}`,
     SHOWN          : `shown${EVENT_KEY}`,
     CLICK_DATA_API : `click${EVENT_KEY}${DATA_API_KEY}`
-  }
+  };
 
   const ClassName = {
     DROPDOWN_MENU : 'dropdown-menu',
@@ -36,7 +36,7 @@ const Tab = (($) => {
     DISABLED      : 'disabled',
     FADE          : 'fade',
     SHOW          : 'show'
-  }
+  };
 
   const Selector = {
     DROPDOWN              : '.dropdown',
@@ -46,7 +46,7 @@ const Tab = (($) => {
     DATA_TOGGLE           : '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]',
     DROPDOWN_TOGGLE       : '.dropdown-toggle',
     DROPDOWN_ACTIVE_CHILD : '> .dropdown-menu .active'
-  }
+  };
 
   /**
    * ------------------------------------------------------------------------
@@ -67,6 +67,25 @@ const Tab = (($) => {
 
     // Public
 
+    static _jQueryInterface(config) {
+      return this.each(function () {
+        const $this = $(this);
+        let data = $this.data(DATA_KEY);
+
+        if (!data) {
+          data = new Tab(this);
+          $this.data(DATA_KEY, data)
+        }
+
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError(`No method named "${config}"`)
+          }
+          data[config]()
+        }
+      })
+    }
+
     show() {
       if (this._element.parentNode &&
           this._element.parentNode.nodeType === Node.ELEMENT_NODE &&
@@ -75,30 +94,30 @@ const Tab = (($) => {
         return
       }
 
-      let target
-      let previous
-      const listElement = $(this._element).closest(Selector.NAV_LIST_GROUP)[0]
-      const selector = Util.getSelectorFromElement(this._element)
+      let target;
+      let previous;
+      const listElement = $(this._element).closest(Selector.NAV_LIST_GROUP)[0];
+      const selector = Util.getSelectorFromElement(this._element);
 
       if (listElement) {
-        const itemSelector = listElement.nodeName === 'UL' ? Selector.ACTIVE_UL : Selector.ACTIVE
-        previous = $.makeArray($(listElement).find(itemSelector))
+        const itemSelector = listElement.nodeName === 'UL' ? Selector.ACTIVE_UL : Selector.ACTIVE;
+        previous = $.makeArray($(listElement).find(itemSelector));
         previous = previous[previous.length - 1]
       }
 
       const hideEvent = $.Event(Event.HIDE, {
         relatedTarget: this._element
-      })
+      });
 
       const showEvent = $.Event(Event.SHOW, {
         relatedTarget: previous
-      })
+      });
 
       if (previous) {
         $(previous).trigger(hideEvent)
       }
 
-      $(this._element).trigger(showEvent)
+      $(this._element).trigger(showEvent);
 
       if (showEvent.isDefaultPrevented() ||
          hideEvent.isDefaultPrevented()) {
@@ -112,20 +131,20 @@ const Tab = (($) => {
       this._activate(
         this._element,
         listElement
-      )
+      );
 
       const complete = () => {
         const hiddenEvent = $.Event(Event.HIDDEN, {
           relatedTarget: this._element
-        })
+        });
 
         const shownEvent = $.Event(Event.SHOWN, {
           relatedTarget: previous
-        })
+        });
 
-        $(previous).trigger(hiddenEvent)
+        $(previous).trigger(hiddenEvent);
         $(this._element).trigger(shownEvent)
-      }
+      };
 
       if (target) {
         this._activate(target, target.parentNode, complete)
@@ -134,33 +153,33 @@ const Tab = (($) => {
       }
     }
 
+    // Private
+
     dispose() {
-      $.removeData(this._element, DATA_KEY)
+      $.removeData(this._element, DATA_KEY);
       this._element = null
     }
 
-    // Private
-
     _activate(element, container, callback) {
-      let activeElements
+      let activeElements;
       if (container.nodeName === 'UL') {
         activeElements = $(container).find(Selector.ACTIVE_UL)
       } else {
         activeElements = $(container).children(Selector.ACTIVE)
       }
 
-      const active = activeElements[0]
+      const active = activeElements[0];
       const isTransitioning = callback &&
-        (active && $(active).hasClass(ClassName.FADE))
+        (active && $(active).hasClass(ClassName.FADE));
 
       const complete = () => this._transitionComplete(
         element,
         active,
         callback
-      )
+      );
 
       if (active && isTransitioning) {
-        const transitionDuration = Util.getTransitionDurationFromElement(active)
+        const transitionDuration = Util.getTransitionDurationFromElement(active);
 
         $(active)
           .one(Util.TRANSITION_END, complete)
@@ -170,13 +189,15 @@ const Tab = (($) => {
       }
     }
 
+    // Static
+
     _transitionComplete(element, active, callback) {
       if (active) {
-        $(active).removeClass(`${ClassName.SHOW} ${ClassName.ACTIVE}`)
+        $(active).removeClass(`${ClassName.SHOW} ${ClassName.ACTIVE}`);
 
         const dropdownChild = $(active.parentNode).find(
           Selector.DROPDOWN_ACTIVE_CHILD
-        )[0]
+        )[0];
 
         if (dropdownChild) {
           $(dropdownChild).removeClass(ClassName.ACTIVE)
@@ -187,19 +208,19 @@ const Tab = (($) => {
         }
       }
 
-      $(element).addClass(ClassName.ACTIVE)
+      $(element).addClass(ClassName.ACTIVE);
       if (element.getAttribute('role') === 'tab') {
         element.setAttribute('aria-selected', true)
       }
 
-      Util.reflow(element)
-      $(element).addClass(ClassName.SHOW)
+      Util.reflow(element);
+      $(element).addClass(ClassName.SHOW);
 
       if (element.parentNode &&
           $(element.parentNode).hasClass(ClassName.DROPDOWN_MENU)) {
-        const dropdownElement = $(element).closest(Selector.DROPDOWN)[0]
+        const dropdownElement = $(element).closest(Selector.DROPDOWN)[0];
         if (dropdownElement) {
-          const dropdownToggleList = [].slice.call(dropdownElement.querySelectorAll(Selector.DROPDOWN_TOGGLE))
+          const dropdownToggleList = [].slice.call(dropdownElement.querySelectorAll(Selector.DROPDOWN_TOGGLE));
           $(dropdownToggleList).addClass(ClassName.ACTIVE)
         }
 
@@ -209,27 +230,6 @@ const Tab = (($) => {
       if (callback) {
         callback()
       }
-    }
-
-    // Static
-
-    static _jQueryInterface(config) {
-      return this.each(function () {
-        const $this = $(this)
-        let data = $this.data(DATA_KEY)
-
-        if (!data) {
-          data = new Tab(this)
-          $this.data(DATA_KEY, data)
-        }
-
-        if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
-            throw new TypeError(`No method named "${config}"`)
-          }
-          data[config]()
-        }
-      })
     }
   }
 
@@ -241,9 +241,9 @@ const Tab = (($) => {
 
   $(document)
     .on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
-      event.preventDefault()
+      event.preventDefault();
       Tab._jQueryInterface.call($(this), 'show')
-    })
+    });
 
   /**
    * ------------------------------------------------------------------------
@@ -251,14 +251,14 @@ const Tab = (($) => {
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME] = Tab._jQueryInterface
-  $.fn[NAME].Constructor = Tab
+  $.fn[NAME] = Tab._jQueryInterface;
+  $.fn[NAME].Constructor = Tab;
   $.fn[NAME].noConflict = function () {
-    $.fn[NAME] = JQUERY_NO_CONFLICT
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
     return Tab._jQueryInterface
-  }
+  };
 
   return Tab
-})($)
+})($);
 
 export default Tab

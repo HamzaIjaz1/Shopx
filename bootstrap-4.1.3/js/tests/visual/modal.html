@@ -214,7 +214,7 @@
     <script src="../../dist/popover.js"></script>
 
     <script>
-      var firefoxTestDone = false
+      var firefoxTestDone = false;
       function reportFirefoxTestResult(result) {
         if (!firefoxTestDone) {
           $('#ff-bug-test-result')
@@ -224,39 +224,39 @@
       }
 
       $(function () {
-        $('[data-toggle="popover"]').popover()
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="popover"]').popover();
+        $('[data-toggle="tooltip"]').tooltip();
 
         $('#tall-toggle').click(function () {
           $('#tall').toggle()
-        })
+        });
 
         $('#ff-bug-input').one('focus', function () {
-          $('#firefoxModal').on('focus', reportFirefoxTestResult.bind(false))
+          $('#firefoxModal').on('focus', reportFirefoxTestResult.bind(false));
           $('#ff-bug-input').on('focus', reportFirefoxTestResult.bind(true))
-        })
+        });
 
         $('#btnPreventModal').on('click', function () {
           $('#firefoxModal').one('shown.bs.modal', function () {
             $(this).modal('hide')
           })
           .one('hide.bs.modal', function (event) {
-            event.preventDefault()
+            event.preventDefault();
             if ($(this).data('bs.modal')._isTransitioning) {
               console.error('Modal plugin should not set _isTransitioning when hide event is prevented')
             } else {
-              console.log('Test passed')
+              console.log('Test passed');
               $(this).modal('hide') // work as expected
             }
           })
           .modal('show')
-        })
+        });
 
         // Test transition duration
         var t0, t1;
 
         $('#slowModal').on('shown.bs.modal', function(){
-          t1 = performance.now()
+          t1 = performance.now();
           console.log('transition-duration took ' + (t1 - t0) + 'ms.')
         }).on('show.bs.modal', function(){
           t0 = performance.now()

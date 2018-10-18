@@ -5,7 +5,7 @@
 /* eslint no-console:off */
 
 (function () {
-  'use strict'
+  'use strict';
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
@@ -18,4 +18,4 @@
   } else {
     console.log('Service workers are not supported.')
   }
-}())
+}());
