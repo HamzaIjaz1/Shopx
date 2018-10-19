@@ -1,3 +1,14 @@
-#navigationbar{
-
+.header {
+    background: darkslategrey;
+}
+.logo{
+    width: 100px;
+}
+.searchbar{
+    width: 50%;
+    margin-top: 20px;
+    align: center;
+}
+.navi{
+    margin: auto;
 }
