@@ -5,15 +5,9 @@
     <title>Post</title>
     <link rel="stylesheet" href="../bootstrap-4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../CSS/PostStyle.css">
-    <link rel="stylesheet" href="../CSS/StoreDashboard.css">
 </head>
 <body>
-<div class="sidenav">
-    <a href="#about">Profile</a>
-    <a href="#services">Products</a>
-    <a href="#clients">Ratings and Reviews</a>
-    <a href="#post" class="active">Posts</a>
-</div>
+<?php include 'Pane.php';?>
 
 <div class="container">
     <img src="../Images/cover.png" class="img-fluid w-100" alt="image">
