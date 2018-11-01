@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Post</title>
-    <link rel="stylesheet" href="../bootstrap-4.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../CSS/PostStyle.css">
-</head>
-<body>
-<?php include 'Pane.php';?>
+
+<?php include 'Pane.php'?>
 
 <div class="container">
-    <img src="../Images/cover.png" class="img-fluid w-100" alt="image">
+
+    <div class="text-center">
+        <h3>Write a post to interact with your customers!</h3>
+    </div>
 
     <div class="card card-div">
     <div class="card-body">
