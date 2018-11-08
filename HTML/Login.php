@@ -33,7 +33,7 @@
                 <button type="submit" class="btn btn-primary btn-block btn-lg">Login</button>
             </div>
         </form>
-        <div class="text-center">Not a user? <a href="Signup.html">Sign up</a>.</div>
+        <div class="text-center">Not a user? <a href="Signup.php">Sign up</a>.</div>
     </div>
 
 </div>

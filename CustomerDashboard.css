@@ -1,5 +1,5 @@
 .header {
-    background: #002752;
+    background: #45520b;
 }
 .logo{
     width: 100px;
@@ -11,4 +11,12 @@
 }
 .navi{
     margin: auto;
+}
+.navitems{
+    color: white;
+    font-size: x-large;
+}
+.active{
+    color: #000;
+
 }
